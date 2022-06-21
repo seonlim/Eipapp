@@ -12,20 +12,24 @@ class Answer extends StatefulWidget {
 }
 
 class _AnswerState extends State<Answer> {
+  List<bool> isSelected = List.generate(3, (index) => false);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: widget.answerTap,
-      style: TextButton.styleFrom(backgroundColor: widget.answerColor),
-      child: Text(
-        widget.answerText,
-        style: TextStyle(
-          fontSize: 15.0,
-        ),
-      ),
+    return ToggleButtons(
+        children: [
+          Text('1'),
+          Text('2'),
+          Text(widget.answerText),
+        ],
+        onPressed: (int index) {
+          setState(() {
+            isSelected[index] = !isSelected[index];
+          });
+        },
+        isSelected: isSelected
     );
   }
 }
 
-//
+//연습모드 좀 더 업그레이드, 에러 해결

@@ -14,7 +14,7 @@ class PlayScreen extends StatefulWidget {
 
 class _PlayScreenState extends State<PlayScreen> {
 
-  final questions = const [
+  final List<Map<String, dynamic>> questions = const [
     {
       'question': 'In Georgia (the state), it’s illegal to eat what with a fork?',
       'answers': [
@@ -193,6 +193,8 @@ class _PlayScreenState extends State<PlayScreen> {
     });
   }
 
+  List<bool> isSelected = List.generate(3, (index) => false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -285,22 +287,25 @@ class _PlayScreenState extends State<PlayScreen> {
                 ),
               ),
               SizedBox(height: 10,),
-              ...(questions[_currentIndex]['answers'] as List<Map<String,dynamic>> )
-                  .map((answer) => Answer(
-                answerText: answer['answerText'],
-                answerColor: answerWasSelected //구분자가 없음.
-                    ? Colors.amberAccent
-                    : Colors.blue,
-                answerTap: () {
-                setState(() { //활성,비활성 조작
-                  answerWasSelected=!answerWasSelected;
-                  //ui자체에서 로직이 분리
-                  _questionAnswered(answer['score']);
-                });
-                },
-                )
-              ).toList(),
-            ],
+        ToggleButtons(
+          children: <Widget>[
+            ...(questions[_currentIndex]['answers'] as List<Map<String,dynamic>>)
+                .map((answer) => Text(answer['answerText']))
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
+                if (buttonIndex == index) {
+                  isSelected[buttonIndex] = !isSelected[buttonIndex];
+                } else {
+                  isSelected[buttonIndex] = false;
+                }
+              }
+            });
+          },
+          isSelected: isSelected,
+             ),
+        ],
           ),
         ),
       ),

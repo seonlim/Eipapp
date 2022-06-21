@@ -7,7 +7,7 @@ import 'package:final_eipapp/screen_subjectsetting.dart';
 import 'package:final_eipapp/playscreen.dart';
 import 'package:final_eipapp/dialogtest.dart';
 import 'package:final_eipapp/learningstatus.dart';
-import 'package:final_eipapp/address_services.dart';
+
 import 'dart:convert';
 
 void main() => runApp(MyApp());
@@ -78,7 +78,6 @@ class MyApp extends StatelessWidget {
         '/learningstatus' : (context) => LearningStatus(),
         '/solutionrecord' : (context) => SolutionRecord(),
         '/dialogtest' : (context) => DialogTest(),
-        '/mappingtest' : (context) => Address(city: '',streets: [],),
       },
     );
   }
